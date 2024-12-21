@@ -3,9 +3,9 @@ fetch('/api/status')
     .then(data => {
         const statusDiv = document.getElementById('status-info');
         statusDiv.innerHTML = `
-            <p>Bot is ${data.online ? 'Online' : 'Offline'}</p>
-            <p>Server Count: ${data.serverCount}</p>
-            <p>Member Count: ${data.memberCount}</p>
+            <p>Bot Status: ${data.online ? '🟢 Online' : '🔴 Offline'}</p>
+            <p>Total Servers: ${data.serverCount}</p>
+            <p>Total Users: ${data.memberCount}</p>
         `;
     })
     .catch(error => {
