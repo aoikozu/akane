@@ -20,6 +20,7 @@
                 const data = await response.json();
 
                 document.getElementById("status").innerHTML = `
+                    <p><strong>ステータス:</strong> 作成中</p>
                     <p><strong>起動時間:</strong> ${data.uptime} 秒</p>
                     <p><strong>メモリ使用量:</strong> ${data.memory} MB</p>
                     <p><strong>サーバー数:</strong> ${data.servers}</p>
