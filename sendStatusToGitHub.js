@@ -21,7 +21,7 @@ function getBotStatus() {
 
 // GitHubのファイルを更新する関数
 async function updateGitHubFile(content) {
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+    const url = `https://api.github.com/repos/aoikozu/akane-dashboad/contents/data.json`;
 
     // ファイルの現在の情報を取得
     const response = await fetch(url, {
