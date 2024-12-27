@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
+const { Octokit } = require('@octokit/rest');
+
 
 // GitHubの情報を設定
 const GITHUB_OWNER = 'aoikozu'; // GitHubユーザー名
@@ -7,69 +9,38 @@ const GITHUB_REPO = 'akane-dashboard'; // リポジトリ名
 const GITHUB_TOKEN = process.env.MY_GITHUB_TOKEN; // GitHubのPersonal Access Token
 const FILE_PATH = 'data.json'; // 更新するファイル
 
-// Botのステータスを取得する関数（例としてダミーデータを使用）
-function getBotStatus() {
-    return {
-        timestamp: new Date().toISOString(),
-        memory: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
-        uptime: process.uptime(),
-        cpu: Math.random().toFixed(2), // ダミーデータ
-        servers: 5, // ダミーデータ
-        members: 1000 // ダミーデータ
-    };
-}
+const octokit = new Octokit({
+  auth: GITHUB_TOKEN,
+});
 
-// GitHubのファイルを更新する関数
-async function updateGitHubFile(content) {
-    const url = `https://api.github.com/repos/aoikozu/akane-dashboad/contents/data.json`;
+async function uploadStatus() {
+  try {
+    // ステータスデータを読み込む
+    const data = fs.readFileSync(FILE_PATH, 'utf8');
+    
+    // ファイルの現在のSHAを取得
+    const { data: fileData } = await octokit.repos.getContent({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      path: FILE_PATH,
+    });
+    const fileSHA = fileData.sha;
 
-    // ファイルの現在の情報を取得
-    const response = await fetch(url, {
-        headers: {
-            Authorization: `token ${GITHUB_TOKEN}`,
-            'Content-Type': 'application/json'
-        }
+    // ファイルをアップロード
+    await octokit.repos.createOrUpdateFileContents({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      path: FILE_PATH,
+      message: 'Update status.json',
+      content: Buffer.from(data).toString('base64'), // Base64エンコード
+      sha: fileSHA, // 必要に応じて既存ファイルのSHAを指定
     });
 
-    if (!response.ok) {
-        console.error('Failed to fetch file data:', response.statusText);
-        return;
-    }
-
-    const fileData = await response.json();
-    const sha = fileData.sha; // ファイルの現在のSHAを取得
-
-    // 新しいコンテンツをBase64エンコード
-    const encodedContent = Buffer.from(JSON.stringify(content, null, 2)).toString('base64');
-
-    // ファイルを更新
-    const updateResponse = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            Authorization: `token ${GITHUB_TOKEN}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            message: 'Update bot status',
-            content: encodedContent,
-            sha: sha
-        })
-    });
-
-    if (!updateResponse.ok) {
-        console.error('Failed to update file:', updateResponse.statusText);
-    } else {
-        console.log('File updated successfully on GitHub');
-    }
+    console.log('✅ GitHubにステータスをアップロードしました！');
+  } catch (error) {
+    console.error('⚠️ ステータスのアップロード中にエラーが発生しました:', error.message);
+  }
 }
 
-// 実行する関数
-async function sendStatus() {
-    const status = getBotStatus();
-    console.log('Sending status to GitHub:', status);
-
-    await updateGitHubFile(status);
-}
-
-// 一定間隔でGitHubに送信
-setInterval(sendStatus, 60000); // 1分ごとに実行
+// 例: 1分ごとにステータスをアップロード
+setInterval(uploadStatus, 6000);
