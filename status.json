@@ -1,15 +1,12 @@
-async function fetchStatus() {
-    const response = await fetch('https://aoikozu.github.io/akanedashboard/status.json');
-    if (!response.ok) {
-        console.error('Status file could not be fetched:', response.status);
-        return;
-    }
-
-    const statusData = await response.json();
-    document.getElementById('uptime').innerText = `Uptime: ${statusData.uptime}`;
-    document.getElementById('memory').innerText = `Memory Usage: ${statusData.memory} MB`;
-    document.getElementById('servers').innerText = `Servers: ${statusData.servers}`;
-    document.getElementById('members').innerText = `Members: ${statusData.members}`;
-    document.getElementById('cpu').innerText = `CPU Usage: ${statusData.cpu}%`;
+{
+  "uptime": 0,
+  "memoryUsage": {
+    "rss": 0,
+    "heapTotal": 0,
+    "heapUsed": 0,
+    "external": 0
+  },
+  "servers": 0,
+  "members": 0,
+  "cpuUsage": 0
 }
-fetchStatus();
