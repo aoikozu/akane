@@ -4,54 +4,190 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="url" content="">
-  <link rel="shortcut icon" href="logo.png" type="image/vnd.microsoft.icon">
-  <title>茜-あかね-公式ホームページ</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="" type="image/vnd.microsoft.icon">
+  <title>茜-あかね-</title>
+  <meta property="description" content="茜は管理者に向けて作られた多機能BOTです">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    const translations = {
+      en: {
+        home: "Home",
+        commands: "Commands",
+        status: "Status",
+        features: "Features",
+        dashboard: "Dashboard",
+        hello: "Fortify",
+        introduction: "Multifunctional bot",
+        installBot: "Install the Bot",
+        announcements: "feature",
+        featuresHeader: "Bot Features",
+        statusHeader: "Bot Status",
+        uptime: "Uptime",
+        users: "Active Users",
+        servers: "Connected Servers",
+        footerDocs: "Docs",
+        footerSupport: "Support",
+        footerPrivacy: "Privacy Policy"
+      },
+      ja: {
+        home: "ホーム",
+        commands: "コマンド一覧",
+        status: "ステータス",
+        features: "Botの特徴",
+        dashboard: "ダッシュボード",
+        hello: "Fortify",
+        introduction: "多機能bot",
+        installBot: "Botを導入する",
+        announcements: "特徴",
+        featuresHeader: "Botの特徴",
+        statusHeader: "Botステータス",
+        uptime: "稼働時間",
+        users: "アクティブユーザー数",
+        servers: "接続サーバー数",
+        footerDocs: "ドキュメント",
+        footerSupport: "サポート",
+        footerPrivacy: "プライバシー・ポリシー"
+      }
+    };
+    function changeLanguage(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        el.textContent = translations[lang][key];
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const languageSelector = document.getElementById("language-selector");
+      languageSelector.addEventListener("change", (e) => {
+        changeLanguage(e.target.value);
+      });
+      const menuButton = document.getElementById("menu-button");
+      const menu = document.getElementById("menu");
+      menuButton.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+    });
+  </script>
 </head>
-<body>
-  <header>
-    <nav>
-      <div class="logo">
-            </div>
-      <div class="menu-icon" id="menu-icon">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+<body class="bg-gray-900 text-gray-300 font-sans">
+  <nav class="bg-gray-800 fixed w-full z-10 top-0 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="index.html" class="text-gray-100 text-xl font-bold">Fortify</a>
+      <div class="flex items-center">
+        <button id="menu-button" class="sm:hidden text-gray-300 focus:outline-none" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <div class="hidden sm:flex space-x-4 items-center">
+          <a href="index.html" class="text-gray-300 hover:text-white">ホーム</a>
+          <a href="docs.html" class="text-gray-300 hover:text-white">コマンド一覧</a>
+          <a href="status.html" class="text-gray-300 hover:text-white">ステータス</a>
+          <a href="https://discord.com/oauth2/authorize?client_id=1272343342692171816" class="bg-gray-700 text-gray-200 hover:bg-gray-600 px-4 py-2 rounded">導入する</a>
+          <a href="login.html" class="bg-blue-600 text-white hover:bg-blue-500 px-4 py-2 rounded">ダッシュボード</a>
+          <label for="language-selector" class="sr-only">Select language</label>
+          <select id="language-selector" class="bg-gray-700 text-gray-200 hover:bg-gray-600 px-2 py-1 rounded">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+        </div>
       </div>
-      <ul id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="https://discord.com/oauth2/authorize?client_id=1272343342692171816">招待リンク</a></li>
-        <li><a href="https://discord.gg/a32WABB8Qv">公式Server</a></li>
-      </ul>
-    </nav>
-  </header>
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>茜-あかね-</h1>
-      <p>多機能bot</p>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="sm:hidden fixed inset-0 bg-gray-900 bg-opacity-70 z-20 hidden">
+    <div class="flex justify-end p-4">
+      <button id="close-menu" class="text-gray-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="flex flex-col items-center space-y-6 py-8">
+      <a href="index.html" class="text-gray-300 text-xl hover:text-white">ホーム</a>
+      <a href="docs.html" class="text-gray-300 text-xl hover:text-white">コマンド一覧</a>
+      <a href="status.html" class="text-gray-300 text-xl hover:text-white">ステータス</a>
+      <a href="https://discord.com/oauth2/authorize?client_id=1272343342692171816" class="bg-gray-700 text-gray-200 hover:bg-gray-600 px-6 py-3 rounded text-xl">導入する</a>
+      <a href="login.html" class="bg-blue-600 text-white hover:bg-blue-500 px-6 py-3 rounded text-xl">ダッシュボード</a>
+      <label for="language-selector" class="text-gray-300">Select language</label>
+      <select id="language-selector" class="bg-gray-700 text-gray-200 hover:bg-gray-600 px-4 py-2 rounded text-lg">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuButton = document.getElementById("menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMenuButton = document.getElementById("close-menu");
+      if (menuButton && mobileMenu && closeMenuButton) {
+        menuButton.addEventListener("click", () => {
+          mobileMenu.classList.remove("hidden");
+        });
+        closeMenuButton.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      }
+    });
+  </script>
+  
+  <section class="h-screen flex flex-col justify-center items-center bg-gray-900">
+    <h1 class="text-6xl font-bold text-gray-200 mb-4" data-i18n="hello">茜-あかね-</h1>
+    <p class="text-lg text-gray-400 mb-6" data-i18n="introduction">管理者向けの多機能BOT</p>
+    <a href="https://discord.com/oauth2/authorize?client_id=1272343342692171816" class="bg-gray-700 text-gray-200 hover:bg-gray-600 px-6 py-3 rounded text-lg" data-i18n="installBot">Botを導入する</a>
+  </section>
+  <section class="bg-gray-800 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-gray-100 mb-8" data-i18n="announcements">特徴</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-700 rounded-lg p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-gray-100 mb-2">主な機能</h3>
+          <p class="text-gray-400 mb-4">ログインボーナス、ランキング、グローバルチャット、固定メッセージ、読み上げ、ロールパネルなど</p>
+        </div>
+        <div class="bg-gray-700 rounded-lg p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-gray-100 mb-2">使い方</h3>
+          <p class="text-gray-400 mb-4">使い方はプレフィックス”!”です。詳しい説明はサーバーに入ってご確認ください</p>
+        </div>
+        <div class="bg-gray-700 rounded-lg p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-gray-100 mb-2">定期的なメンテナンス</h3>
+          <p class="text-gray-400 mb-4">安定性を保つため、定期的にメンテナンスを実施します。</p>
+        </div>
+      </div>
     </div>
   </section>
-
-  <section class="section" id="about">
-    <h2>主な機能</h2>
-    <p>ログインボーナス、ランキング、グローバルチャット、固定メッセージ、読み上げ、ロールパネルなど</p>
+  <section class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-gray-100 mb-8" data-i18n="statusHeader">Botステータス</h2>
+      <table class="table-auto w-full text-left">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-gray-400" data-i18n="uptime">稼働時間</th>
+            <th class="px-4 py-2 text-gray-400" data-i18n="users">アクティブユーザー数</th>
+            <th class="px-4 py-2 text-gray-400" data-i18n="servers">接続サーバー数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border px-4 py-2">99.99%</td>
+            <td class="border px-4 py-2">95000+</td>
+            <td class="border px-4 py-2">150+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
-
-  <section class="section" id="activities">
-    <h2>最近公開botになりました！</h2>
-    <p>公開botになりましたが、100サーバー超えても認証はしません。</p>
-  </section>
-
-  <section class="section" id="join">
-    <h2>使い方</h2>
-    <p>主な使い方に関しては、サーバー内にありますので、そちらをご確認ください</p>
-  </section>
-
-  <footer>
-    <p>&copy; 2024 akane-team</p>
+  <footer class="bg-gray-900 text-gray-400 py-6">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between">
+      <p>&copy; 2024 Fortify. All rights reserved.</p>
+      <div class="flex space-x-4">
+        <a href="docs.html" class="hover:text-gray-200" data-i18n="footerDocs">ドキュメント</a>
+        <a href="https://discord.gg/a32WABB8Qv" class="hover:text-gray-200" data-i18n="footerSupport">サポート</a>
+        <a href="terms.html" class="hover:text-gray-200" deta-i18n="footerTerms">利用規約</a>
+        <a href="privacy-policy.html" class="hover:text-gray-200" data-i18n="footerPrivacy">プライバシー・ポリシー</a>
+      </div>
+    </div>
   </footer>
-
-  <script src="scripts.js"></script>
 </body>
 </html>
