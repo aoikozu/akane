@@ -1,41 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bot Status</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.5; margin: 20px; }
-        .status { padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="url" content="">
+  <link rel="shortcut icon" href="logo.png" type="image/vnd.microsoft.icon">
+  <title>VibeShift</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Bot Status</h1>
-    <div id="status" class="status">Loading...</div>
+  <header>
+    <nav>
+      <div class="logo">
+            </div>
+      <div class="menu-icon" id="menu-icon">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://discord.com/oauth2/authorize?client_id=1272343342692171816">招待リンク</a></li>
+        <li><a href="https://discord.gg/a32WABB8Qv">公式Server</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>茜-あかね-</h1>
+      <p>多機能bot</p>
+    </div>
+  </section>
 
-    <script>
-        async function fetchStatus() {
-            try {
-                const response = await fetch("./data.json");
-                const data = await response.json();
+  <section class="section" id="about">
+    <h2>主な機能</h2>
+    <p>ログインボーナス、ランキング、グローバルチャット、固定メッセージ、読み上げ、ロールパネルなど</p>
+  </section>
 
-                document.getElementById("status").innerHTML = `
-                    <p><strong>ステータス:</strong> 作成中</p>
-                    <p><strong>起動時間:</strong> ${data.uptime} 秒</p>
-                    <p><strong>メモリ使用量:</strong> ${data.memory} MB</p>
-                    <p><strong>サーバー数:</strong> ${data.servers}</p>
-                    <p><strong>メンバー数:</strong> ${data.members}</p>
-                    <p><strong>CPU使用率:</strong> ${data.cpu}</p>
-                    <p><strong>更新時間:</strong> ${data.timestamp}</p>
-                `;
-            } catch (error) {
-                console.error("Failed to fetch status:", error);
-                document.getElementById("status").innerHTML = "Failed to load status.";
-            }
-        }
+  <section class="section" id="activities">
+    <h2>最近公開botになりました！</h2>
+    <p>公開botになりましたが、100サーバー超えても認証はしません。</p>
+  </section>
 
-        setInterval(fetchStatus, 60000); // 1分ごとに更新
-        fetchStatus();
-    </script>
+  <section class="section" id="join">
+    <h2>使い方</h2>
+    <p>主な使い方に関しては、サーバー内にありますので、そちらをご確認ください</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 akane-team</p>
+  </footer>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
