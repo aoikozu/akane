@@ -6,13 +6,19 @@ body {
     color: #ccc; /* テキストを明るいグレーに */
 }
 
-/* ヘッダーのスタイル */
+/* ヘッダーの固定 */
 header {
     display: flex;
     justify-content: space-between; /* ロゴとナビゲーションを両端に配置 */
     align-items: center; /* 垂直方向の中央揃え */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background: #222; /* ヘッダーの背景をダークカラーに */
+    color: white;
     padding: 10px 20px; /* 内側の余白を設定 */
+    z-index: 1000; /* 他の要素の上に表示 */
 }
 
 header .logo {
@@ -20,24 +26,34 @@ header .logo {
     color: #f39c12; /* ロゴの文字色をオレンジに設定 */
 }
 
-/* ナビゲーションメニュー */
-nav ul {
+header nav ul {
     list-style: none; /* リストのマーカーを削除 */
     display: flex; /* 水平配置 */
     gap: 15px; /* 各リンク間の間隔 */
 }
 
-nav ul li a {
+header nav a {
     color: #ccc; /* リンクの色 */
     text-decoration: none; /* 下線を削除 */
 }
 
-/* メインコンテンツのスタイル */
-main {
-    padding: 20px; /* コンテンツ全体に余白を追加 */
+header #lang-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
-/* ヒーローセクション */
+/* メインコンテンツ */
+main {
+    padding-top: 80px; /* ヘッダーの高さ分を調整 */
+}
+
 .hero {
     text-align: center; /* テキストを中央揃え */
     margin: 50px 0; /* 上下に大きな余白 */
@@ -85,4 +101,3 @@ p {
     line-height: 1.6; /* 読みやすいように行間を広げる */
     color: #ddd; /* 薄めの灰色 */
 }
-
