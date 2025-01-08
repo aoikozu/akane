@@ -111,4 +111,13 @@ p {
     margin-bottom: 20px; /* 各セクションの間にスペース */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 少し立体的に見える影 */
 }
+.terms-section h2 {
+    font-size: 24px; /* 見出しのサイズ */
+    color: #f39c12; /* オレンジ色 */
+    margin-bottom: 10px; /* 見出し下に余白 */
+}
 
+.terms-section p {
+    line-height: 1.6; /* 行間を広げる */
+    margin: 0; /* デフォルトの余白をリセット */
+}
