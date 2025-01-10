@@ -54,6 +54,7 @@ main {
     padding-top: 80px; /* ヘッダーの高さ分を調整 */
 }
 
+/* ヒーローセクション */
 .hero {
     text-align: center; /* テキストを中央揃え */
     margin: 50px 0; /* 上下に大きな余白 */
@@ -69,14 +70,6 @@ main {
     color: #fff; /* ボタンの文字色 */
     border: none; /* 枠線を削除 */
     cursor: pointer; /* カーソルをクリック可能に変更 */
-}
-
-/* フッターのスタイル */
-footer {
-    text-align: center; /* 中央揃え */
-    padding: 10px; /* 内側の余白 */
-    background: #222; /* フッターの背景色 */
-    color: #999; /* テキスト色をライトグレーに */
 }
 
 /* 見出しのスタイル */
@@ -111,4 +104,28 @@ p {
     padding: 20px; /* 内側の余白 */
     margin-bottom: 20px; /* 各セクションの間にスペース */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 少し立体的に見える影 */
+}
+
+/* ステータスカード */
+.status-card {
+    background: #444;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    display: inline-block;
+    text-align: left;
+    color: #ddd;
+}
+
+.status-card p {
+    margin: 10px 0;
+}
+
+/* フッターのスタイル */
+footer {
+    text-align: center; /* 中央揃え */
+    padding: 10px; /* 内側の余白 */
+    background: #222; /* フッターの背景色 */
+    color: #999; /* テキスト色をライトグレーに */
 }
