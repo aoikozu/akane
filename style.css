@@ -122,6 +122,62 @@ p {
     margin: 10px 0;
 }
 
+/* サポートチームセクション */
+.support-team {
+    padding: 20px;
+    background-color: #444; /* ダークグレー背景 */
+    color: #fff; /* テキスト白 */
+    text-align: center;
+    margin: 30px 0;
+}
+
+.support-team h2 {
+    font-size: 28px;
+    color: #f39c12; /* オレンジ色 */
+    margin-bottom: 20px;
+}
+
+.team-group {
+    margin-bottom: 30px;
+}
+
+.team-group h3 {
+    font-size: 24px;
+    color: #f39c12;
+    margin-bottom: 15px;
+}
+
+.moderater-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    justify-items: center;
+    margin-top: 15px;
+}
+
+.member-card {
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.member-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.member-card p {
+    font-size: 14px;
+    color: #ddd;
+    margin: 5px 0;
+}
+
 /* フッターのスタイル */
 footer {
     text-align: center; /* 中央揃え */
