@@ -185,3 +185,17 @@ footer {
     background: #222; /* フッターの背景色 */
     color: #999; /* テキスト色をライトグレーに */
 }
+/* 時計のスタイル */
+.clock {
+    font-size: 16px;
+    color: #ccc;
+    background-color: #444;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
