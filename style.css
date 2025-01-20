@@ -10,7 +10,7 @@ body {
 header {
     display: flex;
     justify-content: space-between; /* ロゴとナビゲーションを両端に配置 */
-    align-items: left; /* 垂直方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
     position: fixed;
     top: 0;
     left: 0;
@@ -30,6 +30,10 @@ header nav ul {
     list-style: none; /* リストのマーカーを削除 */
     display: flex; /* 水平配置 */
     gap: 15px; /* 各リンク間の間隔 */
+    padding: 0; /* 不要な余白を削除 */
+    margin: 0; /* 不要な余白を削除 */
+    justify-content: flex-start; /* 左揃えに設定 */
+    align-items: center; /* 垂直方向の中央揃え */
 }
 
 header nav a {
