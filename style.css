@@ -10,7 +10,7 @@ body {
 header {
     display: flex;
     justify-content: space-between; /* ロゴとナビゲーションを両端に配置 */
-    align-items: center; /* 垂直方向の中央揃え */
+    align-items: left; /* 垂直方向の中央揃え */
     position: fixed;
     top: 0;
     left: 0;
