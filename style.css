@@ -6,11 +6,10 @@ body {
     color: #ccc; /* テキストを明るいグレーに */
 }
 
-/* ヘッダーの固定 */
 header {
     display: flex;
-    justify-content: space-between; /* ロゴとナビゲーションを両端に配置 */
-    align-items: left; /* 垂直方向の中央揃え */
+    justify-content: flex-start; /* 全てを左寄せに */
+    align-items: center; /* 縦方向の中央揃え */
     position: fixed;
     top: 0;
     left: 0;
@@ -24,12 +23,13 @@ header {
 header .logo {
     font-size: 24px; /* ロゴのフォントサイズ */
     color: #f39c12; /* ロゴの文字色をオレンジに設定 */
+    margin-right: 20px; /* ロゴとナビゲーションの間に適切な間隔 */
 }
 
 header nav ul {
     list-style: none; /* リストのマーカーを削除 */
     display: flex; /* 水平配置 */
-    gap: 15px; /* 各リンク間の間隔 */
+    gap: 10px; /* 各リンク間の間隔を狭く */
     padding: 0; /* 不要な余白を削除 */
     margin: 0; /* 不要な余白を削除 */
     justify-content: flex-start; /* 左揃えに設定 */
@@ -39,8 +39,14 @@ header nav ul {
 header nav a {
     color: #ccc; /* リンクの色 */
     text-decoration: none; /* 下線を削除 */
+    padding: 5px 10px; /* ボタンの内側余白を設定 */
+    border-radius: 4px; /* なめらかな角丸 */
+    transition: background-color 0.3s ease; /* ホバーアニメーション */
 }
 
+header nav a:hover {
+    background-color: #555; /* ホバー時に背景色を変更 */
+}
 header #lang-toggle {
     position: absolute;
     right: 20px;
