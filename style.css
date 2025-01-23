@@ -209,3 +209,20 @@ footer {
     transform: translateY(-50%);
 }
 
+/* メンバー画像の保護 */
+.member-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    pointer-events: none; /* 画像のドラッグを無効化 */
+    user-select: none; /* 画像テキストの選択を無効化 */
+}
+
+/* メンバーカードの一言コメント */
+.member-card .comment {
+    font-size: 14px;
+    color: #f39c12; /* コメントを目立たせるためオレンジ色 */
+    margin-top: 5px;
+    font-style: italic; /* 斜体でコメントを強調 */
+}
