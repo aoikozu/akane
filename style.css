@@ -160,7 +160,7 @@ p {
 .moderater-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 50px;
+    gap: 40px;
     justify-items: center;
     margin-top: 15px;
 }
