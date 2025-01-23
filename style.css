@@ -226,3 +226,26 @@ footer {
     margin-top: 5px;
     font-style: italic; /* 斜体でコメントを強調 */
 }
+
+/* ソーシャルリンクのスタイル */
+.social-links {
+    margin-top: 10px; /* 上の要素との間隔 */
+    display: flex; /* 横並びに配置 */
+    gap: 10px; /* 各リンクの間隔を設定 */
+    justify-content: center; /* リンクを中央揃え */
+}
+
+.social-links a {
+    font-size: 14px; /* リンクの文字サイズ */
+    color: #f39c12; /* リンクの色（オレンジ） */
+    text-decoration: none; /* 下線を削除 */
+    padding: 5px 10px; /* 余白を追加してボタン風に */
+    border: 1px solid #f39c12; /* ボーダーでリンクを囲む */
+    border-radius: 4px; /* ボタンの角を丸く */
+    transition: background-color 0.3s, color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.social-links a:hover {
+    background-color: #f39c12; /* ホバー時に背景をオレンジに */
+    color: #222; /* ホバー時の文字色を濃い色に */
+}
