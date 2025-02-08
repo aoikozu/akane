@@ -250,3 +250,38 @@ footer {
     color: #222; /* ホバー時の文字色を濃い色に */
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#login-btn, #logout-btn {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#login-btn:hover, #logout-btn:hover {
+    background-color: #e67e22;
+}
+
+#user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
