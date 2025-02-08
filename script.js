@@ -33,3 +33,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+async function checkLoginStatus() {
+    try {
+        const response = await fetch("https://your-glitch-project.glitch.me/api/user", { credentials: "include" });
+        
+        if (!response.ok) throw new Error("未ログイン");
+
+        const user = await response.json();
+        
+        // ログインボタンを隠して、ユーザー情報を表示
+        document.getElementById("login-btn").style.display = "none";
+        document.getElementById("user-profile").style.display = "flex";
+        document.getElementById("user-name").textContent = `${user.username}#${user.discriminator}`;
+        document.getElementById("user-avatar").src = user.avatar 
+            ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` 
+            : "default-avatar.png";
+    } catch (error) {
+        console.log("ログインしていません");
+    }
+}
+
+// ログインボタンの処理
+document.getElementById("login-btn").addEventListener("click", () => {
+    window.location.href = "https://your-glitch-project.glitch.me/auth/discord";
+});
+
+// ログアウト処理
+document.getElementById("logout-btn").addEventListener("click", () => {
+    window.location.href = "https://your-glitch-project.glitch.me/logout";
+});
+
+// ページ読み込み時にログイン状態をチェック
+document.addEventListener("DOMContentLoaded", checkLoginStatus);
