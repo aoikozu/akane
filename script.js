@@ -66,3 +66,35 @@ document.getElementById("logout-btn").addEventListener("click", () => {
 
 // ページ読み込み時にログイン状態をチェック
 document.addEventListener("DOMContentLoaded", checkLoginStatus);
+
+async function fetchBotStatus() {
+    try {
+        console.log("Bot ステータス取得開始...");
+        
+        const response = await fetch("https://your-glitch-project.glitch.me/api/status");
+        if (!response.ok) throw new Error(`HTTPエラー: ${response.status}`);
+
+        const data = await response.json();
+        
+        console.log("Bot ステータス取得成功:", data);
+
+        // メインページの簡易ステータス
+        document.getElementById("bot-online-status").textContent = data.status === "オンライン" ? "🟢 オンライン" : "🔴 オフライン";
+
+        // 詳細ページのステータス
+        if (document.getElementById("bot-status")) {
+            document.getElementById("bot-status").textContent = data.status;
+            document.getElementById("bot-uptime").textContent = data.uptime;
+            document.getElementById("bot-ping").textContent = `${data.ping} ms`;
+            document.getElementById("bot-guilds").textContent = `${data.guilds} サーバー`;
+            document.getElementById("bot-members").textContent = `${data.members} 人`;
+            document.getElementById("bot-cpu").textContent = `${data.cpu}%`;
+            document.getElementById("bot-memory").textContent = `${data.memory} MB`;
+        }
+    } catch (error) {
+        console.error("Bot ステータス取得エラー:", error);
+    }
+}
+
+// ページ読み込み時に実行
+document.addEventListener("DOMContentLoaded", fetchBotStatus);
