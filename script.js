@@ -71,7 +71,7 @@ async function fetchBotStatus() {
     try {
         console.log("Bot ステータス取得開始...");
         
-        const response = await fetch("https://your-glitch-project.glitch.me/api/status");
+        const response = await fetch("https://akane-quin.glitch.me//api/status");
         if (!response.ok) throw new Error(`HTTPエラー: ${response.status}`);
 
         const data = await response.json();
