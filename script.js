@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function checkLoginStatus() {
     try {
-        const response = await fetch("https://your-glitch-project.glitch.me/api/user", { credentials: "include" });
+        const response = await fetch("https://akane-quin.glitch.me/api/user", { credentials: "include" });
         
         if (!response.ok) throw new Error("未ログイン");
 
@@ -56,12 +56,12 @@ async function checkLoginStatus() {
 
 // ログインボタンの処理
 document.getElementById("login-btn").addEventListener("click", () => {
-    window.location.href = "https://your-glitch-project.glitch.me/auth/discord";
+    window.location.href = "https://akane-quin.glitch.me/auth/discord";
 });
 
 // ログアウト処理
 document.getElementById("logout-btn").addEventListener("click", () => {
-    window.location.href = "https://your-glitch-project.glitch.me/logout";
+    window.location.href = "https://akane-quin.glitch.me/logout";
 });
 
 // ページ読み込み時にログイン状態をチェック
