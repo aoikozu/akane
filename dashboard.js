@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const loginBtn = document.getElementById("login-btn");
     const logoutBtn = document.getElementById("logout-btn");
     const userAvatar = document.getElementById("user-avatar");
-    const serverList = document.getElementById("server-list");
 
     // ✅ ユーザー情報取得
     async function fetchUser() {
@@ -32,13 +31,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ✅ ユーザー情報の表示
     const user = await fetchUser();
     if (user) {
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "inline-block";
+        loginBtn.style.display = "none"; // ログインボタンを非表示
+        logoutBtn.style.display = "inline-block"; // ログアウトボタンを表示
         userAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
-        userAvatar.style.display = "inline-block";
+        userAvatar.style.display = "inline-block"; // ユーザーアイコンを表示
     }
 
     // ✅ サーバー情報の表示
+    const serverList = document.getElementById("server-list");
     const servers = await fetchServers();
     if (servers && servers.length > 0) {
         serverList.innerHTML = "";

@@ -284,6 +284,7 @@ footer {
     height: 40px;
     border-radius: 50%;
     border: 2px solid white;
+    display: none; /* 初期状態で非表示 */
 }
 .server-grid {
     display: grid;
