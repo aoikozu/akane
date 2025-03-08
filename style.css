@@ -2,51 +2,53 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #333; /* 背景をダークグレーに設定 */
-    color: #ccc; /* テキストを明るいグレーに */
+    background: #333;
+    color: #ccc;
 }
 
+/* ヘッダー */
 header {
     display: flex;
-    justify-content: flex-start; /* 全てを左寄せに */
-    align-items: center; /* 縦方向の中央揃え */
+    justify-content: flex-start;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: #222; /* ヘッダーの背景をダークカラーに */
+    background: #222;
     color: white;
-    padding: 10px 20px; /* 内側の余白を設定 */
-    z-index: 1000; /* 他の要素の上に表示 */
+    padding: 10px 20px;
+    z-index: 1000;
 }
 
 header .logo {
-    font-size: 24px; /* ロゴのフォントサイズ */
-    color: #f39c12; /* ロゴの文字色をオレンジに設定 */
-    margin-right: 20px; /* ロゴとナビゲーションの間に適切な間隔 */
+    font-size: 24px;
+    color: #f39c12;
+    margin-right: 20px;
 }
 
 header nav ul {
-    list-style: none; /* リストのマーカーを削除 */
-    display: flex; /* 水平配置 */
-    gap: 10px; /* 各リンク間の間隔を狭く */
-    padding: 0; /* 不要な余白を削除 */
-    margin: 0; /* 不要な余白を削除 */
-    justify-content: flex-start; /* 左揃えに設定 */
-    align-items: center; /* 垂直方向の中央揃え */
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 header nav a {
-    color: #ccc; /* リンクの色 */
-    text-decoration: none; /* 下線を削除 */
-    padding: 5px 10px; /* ボタンの内側余白を設定 */
-    border-radius: 4px; /* なめらかな角丸 */
-    transition: background-color 0.3s ease; /* ホバーアニメーション */
+    color: #ccc;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 header nav a:hover {
-    background-color: #555; /* ホバー時に背景色を変更 */
+    background-color: #555;
 }
+
 header #lang-toggle {
     position: absolute;
     right: 20px;
@@ -61,59 +63,48 @@ header #lang-toggle {
 
 /* メインコンテンツ */
 main {
-    padding-top: 80px; /* ヘッダーの高さ分を調整 */
+    padding-top: 80px;
 }
 
 /* ヒーローセクション */
 .hero {
-    text-align: center; /* テキストを中央揃え */
-    margin: 50px 0; /* 上下に大きな余白 */
+    text-align: center;
+    margin: 50px 0;
 }
 
 .hero h1 {
-    font-size: 36px; /* ヒーローセクションの見出しを大きく */
+    font-size: 36px;
 }
 
 .hero .install-btn {
-    padding: 10px 20px; /* ボタンの内側の余白 */
-    background: #f39c12; /* ボタンの背景色 */
-    color: #fff; /* ボタンの文字色 */
-    border: none; /* 枠線を削除 */
-    cursor: pointer; /* カーソルをクリック可能に変更 */
+    padding: 10px 20px;
+    background: #f39c12;
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }
 
-/* 見出しのスタイル */
+/* 見出しスタイル */
 h1 {
-    font-size: 28px; /* 大きめのフォントサイズ */
-    color: #f39c12; /* 鮮やかなオレンジ色 */
-    border-bottom: 2px solid #f39c12; /* 下線を引いて見出しを強調 */
-    padding-bottom: 10px; /* 下線と文字の間にスペースを追加 */
-    margin-bottom: 20px; /* 見出し下の余白 */
-    text-align: center; /* 中央揃え */
+    font-size: 28px;
+    color: #f39c12;
+    border-bottom: 2px solid #f39c12;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 h2 {
-    font-size: 22px; /* サブ見出し用 */
-    color: #fff; /* 白色 */
-    margin-bottom: 15px; /* 見出し下の余白 */
-    text-align: left; /* 左揃え */
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 15px;
+    text-align: left;
 }
 
-/* 段落のスタイル */
+/* 段落スタイル */
 p {
-    line-height: 1.6; /* 読みやすいように行間を広げる */
-    color: #ddd; /* 薄めの灰色 */
-}
-
-/* 利用規約用セクションのデザイン */
-.terms-section {
-    background-color: #444; /* ダークグレーの背景 */
-    color: #ccc; /* 明るいテキスト色 */
-    border: 1px solid #555; /* 薄い境界線 */
-    border-radius: 8px; /* 角を丸くする */
-    padding: 20px; /* 内側の余白 */
-    margin-bottom: 20px; /* 各セクションの間にスペース */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 少し立体的に見える影 */
+    line-height: 1.6;
+    color: #ddd;
 }
 
 /* ステータスカード */
@@ -128,22 +119,18 @@ p {
     color: #ddd;
 }
 
-.status-card p {
-    margin: 10px 0;
-}
-
-/* サポートチームセクション */
+/* サポートチーム */
 .support-team {
     padding: 20px;
-    background-color: #444; /* ダークグレー背景 */
-    color: #fff; /* テキスト白 */
+    background-color: #444;
+    color: #fff;
     text-align: center;
     margin: 30px 0;
 }
 
 .support-team h2 {
     font-size: 28px;
-    color: #f39c12; /* オレンジ色 */
+    color: #f39c12;
     margin-bottom: 20px;
 }
 
@@ -180,6 +167,8 @@ p {
     height: auto;
     border-radius: 50%;
     margin-bottom: 10px;
+    pointer-events: none;
+    user-select: none;
 }
 
 .member-card p {
@@ -188,68 +177,37 @@ p {
     margin: 5px 0;
 }
 
-/* フッターのスタイル */
-footer {
-    text-align: center; /* 中央揃え */
-    padding: 10px; /* 内側の余白 */
-    background: #222; /* フッターの背景色 */
-    color: #999; /* テキスト色をライトグレーに */
-}
-/* 時計のスタイル */
-.clock {
-    font-size: 16px;
-    color: #ccc;
-    background-color: #444;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-align: center;
-    position: absolute;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* メンバー画像の保護 */
-.member-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    pointer-events: none; /* 画像のドラッグを無効化 */
-    user-select: none; /* 画像テキストの選択を無効化 */
-}
-
-/* メンバーカードの一言コメント */
 .member-card .comment {
     font-size: 14px;
-    color: #f39c12; /* コメントを目立たせるためオレンジ色 */
+    color: #f39c12;
     margin-top: 5px;
-    font-style: italic; /* 斜体でコメントを強調 */
+    font-style: italic;
 }
 
-/* ソーシャルリンクのスタイル */
+/* ソーシャルリンク */
 .social-links {
-    margin-top: 10px; /* 上の要素との間隔 */
-    display: flex; /* 横並びに配置 */
-    gap: 10px; /* 各リンクの間隔を設定 */
-    justify-content: center; /* リンクを中央揃え */
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
 .social-links a {
-    font-size: 14px; /* リンクの文字サイズ */
-    color: #f39c12; /* リンクの色（オレンジ） */
-    text-decoration: none; /* 下線を削除 */
-    padding: 5px 10px; /* 余白を追加してボタン風に */
-    border: 1px solid #f39c12; /* ボーダーでリンクを囲む */
-    border-radius: 4px; /* ボタンの角を丸く */
-    transition: background-color 0.3s, color 0.3s; /* ホバー時のスムーズな変化 */
+    font-size: 14px;
+    color: #f39c12;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #f39c12;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .social-links a:hover {
-    background-color: #f39c12; /* ホバー時に背景をオレンジに */
-    color: #222; /* ホバー時の文字色を濃い色に */
+    background-color: #f39c12;
+    color: #222;
 }
 
+/* ユーザーメニュー */
 .user-info {
     display: flex;
     align-items: center;
@@ -284,8 +242,10 @@ footer {
     height: 40px;
     border-radius: 50%;
     border: 2px solid white;
-    display: none; /* 初期状態で非表示 */
+    display: none;
 }
+
+/* サーバー一覧 */
 .server-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
