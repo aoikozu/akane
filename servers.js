@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
             invite: "https://discord.gg/a32WABB8Qv",
         },
         {
-            name: "作成中",
-            description: "作成中",
-            invite: "https://discord.gg/yyyyy",
+            name: "Fortify support",
+            description: "Fortify Shield botの公式サポートサーバーです。",
+            invite: "https://discord.gg/CVRsP4sDTV",
         },
         {
             name: "作成中",
