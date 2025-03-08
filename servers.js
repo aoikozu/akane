@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             name: "茜-あかね-公式サーバー",
             description: "茜-あかね-の公式サポートサーバーです。",
-            invite: "https://discord.gg/xxxxx",
+            invite: "https://discord.gg/a32WABB8Qv",
         },
         {
             name: "作成中",
