@@ -260,14 +260,6 @@ p {
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-.server-card img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
 .server-card h3 {
     font-size: 16px;
     color: #fff;

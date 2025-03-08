@@ -7,19 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "茜-あかね-公式サーバー",
             description: "茜-あかね-の公式サポートサーバーです。",
             invite: "https://discord.gg/xxxxx",
-            icon: "images/server1.png"
         },
         {
             name: "作成中",
-            description: "ゲーマーたちが集うサーバー！",
+            description: "作成中",
             invite: "https://discord.gg/yyyyy",
-            icon: "images/server2.png"
         },
         {
-            name: "開発者の部屋",
-            description: "プログラミングや開発の話題を共有するサーバー。",
+            name: "作成中",
+            description: "作成中",
             invite: "https://discord.gg/zzzzz",
-            icon: "images/server3.png"
         }
     ];
 
