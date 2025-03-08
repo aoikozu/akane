@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ダッシュボード - 茜-あかね-</title>
-    <link rel="stylesheet" href="style.css">
+    <title>多機能ダッシュボード - 茜-あかね-</title>
+    <link rel="stylesheet" href="style3.css">
     <script defer src="dashboard.js"></script>
 </head>
 <body>
     <header>
-        <div class="logo">茜-あかね- - Dashboard</div>
+        <div class="logo">茜-あかね-</div>
         <nav>
-            <button id="logout-btn">ログアウト</button>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="terms.html">利用規約</a></li>
+                <li><a href="privacy.html">プライバシーポリシー</a></li>
+                <li><a href="docs.html">ドキュメント</a></li>
+            </ul>
         </nav>
+        <div id="user-profile">
+            <button id="login-btn">ログイン</button>
+            <button id="logout-btn" style="display: none;">ログアウト</button>
+            <img id="user-avatar" src="" alt="User Avatar" style="display: none;">
+        </div>
     </header>
 
     <main>
-        <h1>あなたのサーバー</h1>
-        <div id="server-list"></div>
+        <h1>多機能ダッシュボード</h1>
+        <p>管理しているサーバーを選択して詳細を確認できます。</p>
+        
+        <div id="server-list" class="server-grid">
+            <p>読み込み中...</p>
+        </div>
     </main>
 
     <footer>

@@ -1,52 +1,68 @@
-// ユーザー情報取得
-async function fetchUser() {
-    const res = await fetch("https://akane-quin.glitch.me/api/user", { credentials: "include" });
-    return res.ok ? res.json() : null;
-}
-
-// サーバーデータ取得
-async function fetchServers() {
-    const res = await fetch("https://akane-quin.glitch.me/api/servers", { credentials: "include" });
-    return res.ok ? res.json() : [];
-}
-
-// サーバーを表示
-async function loadDashboard() {
-    const user = await fetchUser();
-    if (!user) return location.href = "index.html"; // 未ログインならトップに戻る
-
-    const servers = await fetchServers();
+document.addEventListener("DOMContentLoaded", async () => {
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const userAvatar = document.getElementById("user-avatar");
     const serverList = document.getElementById("server-list");
-    serverList.innerHTML = "";
 
-    servers.forEach(server => {
-        const div = document.createElement("div");
-        div.className = "server-card";
-        div.innerHTML = `
-            <img src="${server.icon || 'default-server.png'}" alt="${server.name}">
-            <p>${server.name}</p>
-            ${server.botInServer 
-                ? `<button onclick="viewStats('${server.id}')">統計を見る</button>`
-                : `<button onclick="inviteBot('${server.id}')">Botを導入</button>`}
-        `;
-        serverList.appendChild(div);
+    // ✅ ユーザー情報取得
+    async function fetchUser() {
+        const res = await fetch("https://akane-quin.glitch.me/api/user", { credentials: "include" });
+        if (!res.ok) return null;
+        return await res.json();
+    }
+
+    // ✅ サーバー情報取得
+    async function fetchServers() {
+        const res = await fetch("https://akane-quin.glitch.me/api/servers", { credentials: "include" });
+        if (!res.ok) return null;
+        return await res.json();
+    }
+
+    // ✅ ログイン処理
+    loginBtn.addEventListener("click", () => {
+        window.location.href = "https://akane-quin.glitch.me/auth/discord";
     });
-}
 
-// 統計ページへ
-function viewStats(serverId) {
-    location.href = `server_stats.html?id=${serverId}`;
-}
+    // ✅ ログアウト処理
+    logoutBtn.addEventListener("click", async () => {
+        await fetch("https://akane-quin.glitch.me/logout", { credentials: "include" });
+        location.reload();
+    });
 
-// Botの導入
-function inviteBot(serverId) {
-    location.href = `https://discord.com/oauth2/authorize?client_id=YOUR_BOT_ID&scope=bot&permissions=8&guild_id=${serverId}`;
-}
+    // ✅ ユーザー情報の表示
+    const user = await fetchUser();
+    if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        userAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+        userAvatar.style.display = "inline-block";
+    }
 
-// ログアウト
-document.getElementById("logout-btn").addEventListener("click", () => {
-    fetch("https://akane-quin.glitch.me/logout", { credentials: "include" }).then(() => location.href = "index.html");
+    // ✅ サーバー情報の表示
+    const servers = await fetchServers();
+    if (servers && servers.length > 0) {
+        serverList.innerHTML = "";
+        servers.forEach(server => {
+            const serverCard = document.createElement("div");
+            serverCard.className = "server-card";
+            serverCard.innerHTML = `
+                <img src="${server.icon || 'default-icon.png'}" alt="${server.name}">
+                <h3>${server.name}</h3>
+                ${server.botInServer ? `<button onclick="viewServer('${server.id}')">詳細を見る</button>` : `<button onclick="inviteBot('${server.id}')">Botを導入</button>`}
+            `;
+            serverList.appendChild(serverCard);
+        });
+    } else {
+        serverList.innerHTML = "<p>管理者権限のあるサーバーがありません。</p>";
+    }
 });
 
-// 読み込み
-document.addEventListener("DOMContentLoaded", loadDashboard);
+// ✅ サーバー統計ページへ移動
+function viewServer(serverId) {
+    window.location.href = `server.html?id=${serverId}`;
+}
+
+// ✅ Bot導入ページへ移動
+function inviteBot(serverId) {
+    window.location.href = `https://discord.com/oauth2/authorize?client_id=YOUR_BOT_ID&scope=bot&permissions=8&guild_id=${serverId}`;
+}
