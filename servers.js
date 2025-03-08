@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const serverCard = document.createElement("div");
         serverCard.className = "server-card";
         serverCard.innerHTML = `
-            <img src="${server.icon}" alt="${server.name}">
             <h3>${server.name}</h3>
             <p>${server.description}</p>
             <button onclick="joinServer('${server.invite}')">参加する</button>
