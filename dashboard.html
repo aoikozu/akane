@@ -6,7 +6,7 @@
     <title>多機能ダッシュボード - 茜-あかね-</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="dashboard.js"></script>
-    <link rel="icon" type="image/png" href="images/favicon.png"> <!-- PNG形式 -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
     <header>
@@ -22,21 +22,119 @@
         <div id="user-profile">
             <button id="login-btn">ログイン</button>
             <button id="logout-btn" style="display: none;">ログアウト</button>
-            <img id="user-avatar" src="" alt="User Avatar" style="display: none;">    
+            <img id="user-avatar" src="" alt="User Avatar" style="display: none;">
         </div>
     </header>
 
     <main>
         <h1>多機能ダッシュボード</h1>
         <p>管理しているサーバーを選択して詳細を確認できます。</p>
-        
+
+        <input type="text" id="server-search" placeholder="サーバー名で検索..." />
+
         <div id="server-list" class="server-grid">
             <p>読み込み中...</p>
         </div>
+
+        <section id="server-detail" style="display:none">
+            <h2>サーバー統計: <span id="server-name"></span></h2>
+            <p><strong>ID:</strong> <span id="server-id"></span></p>
+            <p><strong>メンバー数:</strong> <span id="server-members"></span></p>
+            <p><strong>チャンネル数:</strong> <span id="server-channels"></span></p>
+            <p><strong>Bot導入済み:</strong> <span id="server-bot"></span></p>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2024-2025 akane-team</p>
     </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const loginBtn = document.getElementById("login-btn");
+        const logoutBtn = document.getElementById("logout-btn");
+        const userAvatar = document.getElementById("user-avatar");
+
+        async function fetchUser() {
+            const res = await fetch("https://akane-quin.glitch.me/api/user", { credentials: "include" });
+            if (!res.ok) return null;
+            return await res.json();
+        }
+
+        async function fetchServers() {
+            const res = await fetch("https://akane-quin.glitch.me/api/servers", { credentials: "include" });
+            if (!res.ok) return null;
+            return await res.json();
+        }
+
+        loginBtn.addEventListener("click", () => {
+            window.location.href = "https://akane-quin.glitch.me/auth/discord";
+        });
+
+        logoutBtn.addEventListener("click", async () => {
+            await fetch("https://akane-quin.glitch.me/logout", { credentials: "include" });
+            location.reload();
+        });
+
+        const user = await fetchUser();
+        if (user) {
+            loginBtn.style.display = "none";
+            logoutBtn.style.display = "inline-block";
+            userAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+            userAvatar.style.display = "inline-block";
+        }
+
+        const serverList = document.getElementById("server-list");
+        const servers = await fetchServers();
+        let allServers = [];
+
+        function renderServers(serversToShow) {
+            serverList.innerHTML = "";
+            serversToShow.forEach(server => {
+                const serverCard = document.createElement("div");
+                serverCard.className = "server-card";
+                serverCard.innerHTML = `
+                    <img src="${server.icon || 'images/default-icon.png'}" alt="${server.name}" />
+                    <h3>${server.name}</h3>
+                    <p>👥 ${server.memberCount || '?'} / 📺 ${server.channelCount || '?'}</p>
+                    ${server.botInServer ? `<button onclick="viewServer('${server.id}')">詳細を見る</button>` : `<button onclick="inviteBot('${server.id}')">Botを導入</button>`}
+                `;
+                serverList.appendChild(serverCard);
+            });
+        }
+
+        if (servers && servers.length > 0) {
+            allServers = servers;
+            renderServers(allServers);
+        } else {
+            serverList.innerHTML = "<p>管理者権限のあるサーバーがありません。</p>";
+        }
+
+        document.getElementById("server-search").addEventListener("input", e => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allServers.filter(s => s.name.toLowerCase().includes(query));
+            renderServers(filtered);
+        });
+    });
+
+    function viewServer(serverId) {
+        const detailSection = document.getElementById("server-detail");
+        const server = allServers.find(s => s.id === serverId);
+        if (!server) return;
+
+        document.getElementById("server-name").textContent = server.name;
+        document.getElementById("server-id").textContent = server.id;
+        document.getElementById("server-members").textContent = server.memberCount || "不明";
+        document.getElementById("server-channels").textContent = server.channelCount || "不明";
+        document.getElementById("server-bot").textContent = server.botInServer ? "はい" : "いいえ";
+
+        detailSection.style.display = "block";
+        detailSection.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function inviteBot(serverId) {
+        window.location.href = `https://discord.com/oauth2/authorize?client_id=1201010163356799036&scope=bot&permissions=8&guild_id=${serverId}`;
+    }
+    </script>
 </body>
 </html>
