@@ -17,9 +17,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await res.json();
     }
 
-    // ✅ ログイン処理
+    // ✅ ログイン処理（callback or callback2 を自動選択）
     loginBtn.addEventListener("click", () => {
-        window.location.href = "https://akane-quin.glitch.me/auth/discord";
+        const clientId = "1272343342692171816"; // ← 実際のDiscord BotのClient ID
+        const useCallback2 = window.location.pathname.includes("/akane");
+
+        const redirectUri = useCallback2
+            ? "https://akane-quin.glitch.me/auth/callback2"
+            : "https://akane-quin.glitch.me/auth/callback";
+
+        const encodedRedirectUri = encodeURIComponent(redirectUri);
+
+        const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodedRedirectUri}&response_type=code&scope=identify%20guilds`;
+
+        window.location.href = discordAuthUrl;
     });
 
     // ✅ ログアウト処理
@@ -31,10 +42,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ✅ ユーザー情報の表示
     const user = await fetchUser();
     if (user) {
-        loginBtn.style.display = "none"; // ログインボタンを非表示
-        logoutBtn.style.display = "inline-block"; // ログアウトボタンを表示
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
         userAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
-        userAvatar.style.display = "inline-block"; // ユーザーアイコンを表示
+        userAvatar.style.display = "inline-block";
     }
 
     // ✅ サーバー情報の表示
@@ -67,9 +78,9 @@ function viewServer(serverId) {
     window.location.href = `server.html?id=${serverId}`;
 }
 
-// ✅ Bot導入ページへ移動（client_id は置き換えてください）
+// ✅ Bot導入ページへ移動（常に callback2 を使用）
 function inviteBot(serverId) {
-    const clientId = "YOUR_BOT_ID"; // 実際のBotのクライアントIDに置き換えてください
+    const clientId = "1272343342692171816";
     const redirectUri = encodeURIComponent("https://akane-quin.glitch.me/auth/callback2");
-    window.location.href = `https://discord.com/oauth2/authorize?client_id=1272343342692171816&scope=bot&permissions=8&guild_id=${serverId}&redirect_uri=${redirectUri}&response_type=code`;
+    window.location.href = `https://discord.com/oauth2/authorize?client_id=${clientId}&scope=bot&permissions=8&guild_id=${serverId}&redirect_uri=${redirectUri}&response_type=code`;
 }
