@@ -1,51 +1,212 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Botステータス - 茜-あかね-</title>
-    <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/png" href="images/favicon.png"> <!-- PNG形式 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Botステータス-茜-あかね-</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <style>
+    :root {
+      --bg-light: #f5f5f5;
+      --bg-dark: #1e1e1e;
+      --text-light: #000;
+      --text-dark: #fff;
+      --online: #4caf50;
+      --offline: #f44336;
+      --warn: #ff9800;
+      --primary: #2196f3;
+    }
 
+    body {
+      font-family: 'Klee One', cursive;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: all 0.3s;
+      margin: 0;
+      padding: 0;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: var(--primary);
+      color: white;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .clock {
+      font-weight: bold;
+    }
+
+    .status {
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .card {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    .status-icon {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+
+    .error-banner {
+      background-color: var(--offline);
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      display: none;
+    }
+
+    .lang-switch, .mode-toggle {
+      margin: 1rem;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">茜-あかね-</div>
-        <nav>
-            <ul>
-                <li><a href="index">ホーム</a></li>
-                <li><a href="terms">利用規約</a></li>
-                <li><a href="privacy">プライバシーポリシー</a></li>
-                <li><a href="docs">ドキュメント</a></li>
-                <li><a href="servers">連携サーバー一覧</a></li>
-                        <div id="clock" class="clock">--:--:--</div>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h1>Bot ステータス</h1>
-        <div class="status-card">
-            <p><strong>オンライン状況:</strong> <span id="bot-status">⏳ 読み込み中...</span></p>
-            <p><strong>起動時間:</strong> <span id="bot-uptime">⏳ 読み込み中...</span></p>
-            <p><strong>Ping:</strong> <span id="bot-ping">⏳ 読み込み中...</span></p>
-            <p><strong>サーバー数:</strong> <span id="bot-guilds">⏳ 読み込み中...</span></p>
-            <p><strong>総メンバー数:</strong> <span id="bot-members">⏳ 読み込み中...</span></p>
-            <p><strong>CPU使用率:</strong> <span id="bot-cpu">⏳ 読み込み中...</span></p>
-            <p><strong>メモリ使用量:</strong> <span id="bot-memory">⏳ 読み込み中...</span></p>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2024-2025 akane-team</p>
-    </footer>
+  <div class="error-banner" id="errorBanner">⚠️ Botがオフラインまたはエラーです</div>
+  <header>
+    <div class="logo">茜-あかね-</div>
+    <nav>
+      <ul>
+        <li><a href="index">ホーム</a></li>
+        <li><a href="terms">利用規約</a></li>
+        <li><a href="privacy">プライバシーポリシー</a></li>
+        <li><a href="docs">ドキュメント</a></li>
+        <li><a href="servers">連携サーバー一覧</a></li>
+        <li><div id="clock" class="clock">--:--:--</div></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="mode-toggle">
+    <button onclick="toggleDarkMode()">🌙/☀️ モード切替</button>
+  </div>
+
+  <div class="lang-switch">
+    <select id="languageSelect" onchange="setLanguage(this.value)">
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <main class="status" id="statusContainer"></main>
+
+  <script>
+    const bots = [
+      { name: "茜 (Akane)", url: "https://akane-quin.glitch.me/status" },
+      { name: "心春 (Koharu)", url: "https://koharu-quin-amber.glitch.me/status" }
+    ];
+
+    const translations = {
+      ja: {
+        online: "🟢 オンライン",
+        offline: "🔴 オフライン",
+        cpu: "💻 CPU使用率",
+        mem: "🧠 メモリ使用率",
+        ping: "📡 Ping",
+        servers: "🧩 サーバー数"
+      },
+      en: {
+        online: "🟢 Online",
+        offline: "🔴 Offline",
+        cpu: "💻 CPU Usage",
+        mem: "🧠 Memory Usage",
+        ping: "📡 Ping",
+        servers: "🧩 Server Count"
+      }
+    };
+
+    let currentLang = 'ja';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      updateStatus();
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+
+    async function updateStatus() {
+      const container = document.getElementById("statusContainer");
+      container.innerHTML = "";
+      let anyOffline = false;
+
+      for (const bot of bots) {
+        try {
+          const res = await fetch(bot.url);
+          if (!res.ok) throw new Error("Failed to fetch");
+          const data = await res.json();
+
+          container.innerHTML += `
+            <div class="card">
+              <h2>${bot.name}</h2>
+              <p>${translations[currentLang].online}</p>
+              <p>${translations[currentLang].cpu}: ${data.cpu}%</p>
+              <p>${translations[currentLang].mem}: ${data.memory}%</p>
+              <p>${translations[currentLang].ping}: ${data.ping}ms</p>
+              <p>${translations[currentLang].servers}: ${data.servers}</p>
+            </div>`;
+        } catch (err) {
+          anyOffline = true;
+          container.innerHTML += `
+            <div class="card" style="border: 2px solid red;">
+              <h2>${bot.name}</h2>
+              <p>${translations[currentLang].offline}</p>
+            </div>`;
+        }
+      }
+
+      document.getElementById("errorBanner").style.display = anyOffline ? "block" : "none";
+    }
+
+    setInterval(updateStatus, 5000);
+    updateStatus();
+  </script>
 </body>
 </html>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q3C5WF65W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7Q3C5WF65W');
-</script>
