@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Botステータス-茜-あかね-</title>
+  <title>Botステータスダッシュボード</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <style>
@@ -15,7 +15,8 @@
       --online: #4caf50;
       --offline: #f44336;
       --warn: #ff9800;
-      --primary: #2196f3;
+      --primary: #FFD700;
+      --highlight: rgba(255, 255, 255, 0.2);
     }
 
     body {
@@ -38,12 +39,13 @@
       align-items: center;
       padding: 1rem;
       background-color: var(--primary);
-      color: white;
+      color: black;
       flex-wrap: wrap;
     }
 
     .logo {
       font-size: 1.5rem;
+      font-weight: bold;
     }
 
     nav ul {
@@ -56,8 +58,15 @@
     }
 
     nav a {
-      color: white;
+      color: black;
       text-decoration: none;
+      padding: 0.5rem;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: var(--highlight);
     }
 
     .clock {
@@ -76,6 +85,7 @@
       padding: 1rem;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
     }
 
     .dark-mode .card {
@@ -133,7 +143,7 @@
   <script>
     const bots = [
       { name: "茜 (Akane)", url: "https://akane-quin.glitch.me/status" },
-      { name: "心春 (Koharu)", url: "https://koharu-quin-amber.glitch.me/status" }
+      { name: "小春 (Koharu)", url: "https://koharu-quin-amber.glitch.me/status" }
     ];
 
     const translations = {
@@ -172,33 +182,55 @@
     }
     setInterval(updateClock, 1000);
 
+    function createCard(id, name) {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.id = id;
+      div.innerHTML = `
+        <h2>${name}</h2>
+        <p class="status-text">${translations[currentLang].offline}</p>
+        <p class="cpu"></p>
+        <p class="mem"></p>
+        <p class="ping"></p>
+        <p class="servers"></p>
+      `;
+      return div;
+    }
+
     async function updateStatus() {
       const container = document.getElementById("statusContainer");
-      container.innerHTML = "";
       let anyOffline = false;
 
-      for (const bot of bots) {
+      bots.forEach((bot, i) => {
+        let card = document.getElementById("bot-" + i);
+        if (!card) {
+          card = createCard("bot-" + i, bot.name);
+          container.appendChild(card);
+        }
+      });
+
+      for (let i = 0; i < bots.length; i++) {
+        const bot = bots[i];
+        const card = document.getElementById("bot-" + i);
         try {
           const res = await fetch(bot.url);
-          if (!res.ok) throw new Error("Failed to fetch");
+          if (!res.ok) throw new Error("Fetch failed");
           const data = await res.json();
 
-          container.innerHTML += `
-            <div class="card">
-              <h2>${bot.name}</h2>
-              <p>${translations[currentLang].online}</p>
-              <p>${translations[currentLang].cpu}: ${data.cpu}%</p>
-              <p>${translations[currentLang].mem}: ${data.memory}%</p>
-              <p>${translations[currentLang].ping}: ${data.ping}ms</p>
-              <p>${translations[currentLang].servers}: ${data.servers}</p>
-            </div>`;
+          card.querySelector(".status-text").textContent = translations[currentLang].online;
+          card.querySelector(".cpu").textContent = `${translations[currentLang].cpu}: ${data.cpu}%`;
+          card.querySelector(".mem").textContent = `${translations[currentLang].mem}: ${data.memory}%`;
+          card.querySelector(".ping").textContent = `${translations[currentLang].ping}: ${data.ping}ms`;
+          card.querySelector(".servers").textContent = `${translations[currentLang].servers}: ${data.servers}`;
+          card.style.border = "none";
         } catch (err) {
           anyOffline = true;
-          container.innerHTML += `
-            <div class="card" style="border: 2px solid red;">
-              <h2>${bot.name}</h2>
-              <p>${translations[currentLang].offline}</p>
-            </div>`;
+          card.querySelector(".status-text").textContent = translations[currentLang].offline;
+          card.querySelector(".cpu").textContent = "";
+          card.querySelector(".mem").textContent = "";
+          card.querySelector(".ping").textContent = "";
+          card.querySelector(".servers").textContent = "";
+          card.style.border = "2px solid red";
         }
       }
 
